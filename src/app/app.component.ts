@@ -23,9 +23,17 @@ export class AppComponent {
   minutes: number;
   seconds: number;
 
+  /**
+   * Track the timer mode.
+   */
+   mode: TimerMode;
+
+
   constructor(private decimalPipe: DecimalPipe) {
     this.minutes = 0;
     this.seconds = 0;
+
+    this.mode = TimerMode.READY;
   }
 
   /**
@@ -40,4 +48,20 @@ export class AppComponent {
     return this.decimalPipe.transform(this.seconds, '2.0') + 's';
   }
 
+  get isEditable() {
+    return this.mode === TimerMode.EDIT;
+  }
+
+  get isReady() {
+    return this.mode === TimerMode.READY;
+  }
+
+}
+
+/**
+ * EDIT - Currently editing the timer
+ * READY - Values are locked, can start the timer
+ */
+ enum TimerMode {
+  EDIT, READY
 }
