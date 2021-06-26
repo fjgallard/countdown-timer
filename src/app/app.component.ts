@@ -82,6 +82,14 @@ export class AppComponent {
     return this.mode === TimerMode.READY;
   }
 
+  get secondsVal() {
+    return this.seconds > 0 ? this.seconds : '';
+  }
+
+  get minutesVal() {
+    return this.minutes > 0 ? this.minutes : '';
+  }
+
 }
 
 /**
