@@ -1,29 +1,33 @@
-<div class="content">
+<div class="content" (click)="setToReady()">
 
-  <div [ngClass]="{hidden: isEditable}" class="timer">
-    <div class="timer-header timer-text">
-      {{ 0 | number: '2.0' }}<span>m</span> {{ 0 | number: '2.0' }}<span>s</span>
+  <div (click)="setToEditable()">
+    <div 
+    [ngClass]="{hidden: isEditable}" class="timer">
+      <div class="timer-header timer-text">
+        {{ 0 | number: '2.0' }}<span>m</span> {{ 0 | number: '2.0' }}<span>s</span>
+      </div>
+    </div>
+  
+    <div [ngClass]="{hidden: !isEditable}" class="timer timer-editable">
+      <div class="timer-field">
+        <input
+        class="timer-text"
+        type="number"
+        [placeholder]="minutesPlaceholder"
+        #minuteField>
+      </div>
+  
+      <div class="timer-field">
+        <input
+        class="timer-text"
+        type="number"
+        [placeholder]="secondsPlaceholder"
+        #secondField>
+      </div>
+  
     </div>
   </div>
-
-  <div [ngClass]="{hidden: !isEditable}" class="timer timer-editable">
-    <div class="timer-field">
-      <input
-      class="timer-text"
-      type="number"
-      [placeholder]="minutesPlaceholder"
-      #minuteField>
-    </div>
-
-    <div class="timer-field">
-      <input
-      class="timer-text"
-      type="number"
-      [placeholder]="secondsPlaceholder"
-      #secondField>
-    </div>
-
-  </div>
+  
 
   <div class="buttons">
     <button 

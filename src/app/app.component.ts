@@ -1,5 +1,5 @@
 import { DecimalPipe } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -28,12 +28,38 @@ export class AppComponent {
    */
    mode: TimerMode;
 
+   /**
+   * Don't change modes clicking the input field while editing
+   */
+  isEditing: boolean;
 
-  constructor(private decimalPipe: DecimalPipe) {
+
+  constructor(private decimalPipe: DecimalPipe, private cdRef:ChangeDetectorRef) {
     this.minutes = 0;
     this.seconds = 0;
 
     this.mode = TimerMode.READY;
+    this.isEditing = false;
+  }
+
+  setToReady() {
+    if (this.isEditable && !this.isEditing) {
+      this.mode = TimerMode.READY;
+      this.minutes = this.minutesField?.nativeElement.value || 0;
+      this.seconds = this.secondsField?.nativeElement.value || 0;
+    }
+
+    this.isEditing = false;
+  }
+
+  setToEditable() {
+    this.isEditing = true;
+
+    if (this.isReady) {
+      this.mode = TimerMode.EDIT;
+      this.cdRef.detectChanges();
+      this.secondsField?.nativeElement.focus();
+    }
   }
 
   /**
