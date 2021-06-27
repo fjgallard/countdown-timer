@@ -6,13 +6,14 @@
       <div class="timer-display timer-text">
         {{ minutes | number: '2.0' }}<span>m</span> {{ seconds | number: '2.0' }}<span>s</span>
       </div>
-    </div>
+    </div>  
   
     <div [ngClass]="{hidden: !isEditable}" class="timer timer-editable">
       <div class="timer-field">
         <input
         class="timer-text"
         type="number"
+        (keydown)="validateInput($event)"
         [placeholder]="minutesPlaceholder"
         [value]="minutesVal"
         #minuteField>
@@ -22,6 +23,7 @@
         <input
         class="timer-text"
         type="number"
+        (keydown)="validateInput($event)"
         [placeholder]="secondsPlaceholder"
         [value]="secondsVal"
         #secondField>
