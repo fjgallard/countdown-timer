@@ -1,5 +1,6 @@
 import { DecimalPipe } from '@angular/common';
 import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -40,6 +41,18 @@ export class AppComponent {
 
     this.mode = TimerMode.READY;
     this.isEditing = false;
+
+    timer(0, 1000).subscribe(() => {
+      if (this.seconds > 0 ) {
+        this.seconds--;
+        return;
+      }
+
+      if (this.seconds === 0 && this.minutes > 0) {
+        this.minutes--;
+        this.seconds = 59;
+      }
+    });
   }
 
   setToReady() {
