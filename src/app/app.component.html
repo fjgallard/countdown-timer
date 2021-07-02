@@ -35,10 +35,11 @@
 
   <div class="buttons">
     <button 
-    mat-raised-button 
-    color="primary">
-    Start
-    </button>
+    *ngIf="!isCounting" 
+    mat-raised-button color="primary" 
+    (click)="startCountdown()"
+    [disabled]="emptyFields">Start</button>
+    <button *ngIf="isCounting" mat-raised-button color="primary" (click)="stopCountdown()">Stop</button>
     <button mat-raised-button color="warn">Reset</button>
   </div>
 </div>

@@ -43,6 +43,11 @@ export class AppComponent {
     this.isEditing = false;
 
     timer(0, 1000).subscribe(() => {
+
+      if (this.mode !== TimerMode.COUNTING) {
+        return;
+      }
+
       if (this.seconds > 0 ) {
         this.seconds--;
         return;
@@ -51,6 +56,10 @@ export class AppComponent {
       if (this.seconds === 0 && this.minutes > 0) {
         this.minutes--;
         this.seconds = 59;
+      }
+
+      if (this.seconds === 0) {
+        this.mode = TimerMode.READY;
       }
     });
   }
@@ -98,6 +107,14 @@ export class AppComponent {
     }
   }
 
+  startCountdown() {
+    this.mode = TimerMode.COUNTING;
+  }
+
+  stopCountdown() {
+    this.mode = TimerMode.READY;
+  }
+
   private isNumberKeys(keyCode: number) {
     return (keyCode > 47 && keyCode < 58);
   }
@@ -130,6 +147,10 @@ export class AppComponent {
     return this.mode === TimerMode.READY;
   }
 
+  get isCounting() {
+    return this.mode === TimerMode.COUNTING;
+  }
+
   get secondsVal() {
     return this.seconds > 0 ? this.seconds : '';
   }
@@ -138,12 +159,17 @@ export class AppComponent {
     return this.minutes > 0 ? this.minutes : '';
   }
 
+  get emptyFields() {
+    return this.seconds <= 0 && this.minutes <= 0;
+  }
+
 }
 
 /**
  * EDIT - Currently editing the timer
  * READY - Values are locked, can start the timer
+ * COUNTING - Timer is counting down
  */
  enum TimerMode {
-  EDIT, READY
+  EDIT, READY, COUNTING
 }
