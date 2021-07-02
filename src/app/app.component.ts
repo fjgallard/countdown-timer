@@ -77,7 +77,7 @@ export class AppComponent {
   setToEditable() {
     this.isEditing = true;
 
-    if (this.isReady) {
+    if (!this.isEditable) {
       this.mode = TimerMode.EDIT;
       this.cdRef.detectChanges();
       this.secondsField?.nativeElement.focus();
@@ -113,6 +113,11 @@ export class AppComponent {
 
   stopCountdown() {
     this.mode = TimerMode.READY;
+  }
+
+  resetTimer() {
+    this.seconds = 0;
+    this.minutes = 0;
   }
 
   private isNumberKeys(keyCode: number) {

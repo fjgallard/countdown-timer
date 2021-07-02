@@ -40,6 +40,6 @@
     (click)="startCountdown()"
     [disabled]="emptyFields">Start</button>
     <button *ngIf="isCounting" mat-raised-button color="primary" (click)="stopCountdown()">Stop</button>
-    <button mat-raised-button color="warn">Reset</button>
+    <button mat-raised-button color="warn" (click)="resetTimer()">Reset</button>
   </div>
 </div>
